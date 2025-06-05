@@ -9,11 +9,12 @@
   "umd:main": "dist/blue.umd.js",
   "module": "dist/blue.mjs",
   "source": "modules/index.js",
+  "type": "module",
   "scripts": {
     "coverage": "nyc --reporter=text-lcov npm test > coverage.lcov",
     "build": "microbundle --name blue",
     "dev": "microbundle watch",
-    "test": "mocha --require @babel/register ./modules/*/__tests__/*.js",
+    "test": "node --test",
     "docs": "jsdoc2md --template README.source.md modules/**/*.js > README.md",
     "prepublishOnly": "npm run build && npm test && npm run docs"
   },
@@ -33,16 +34,18 @@
     "events"
   ],
   "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "chai": "^4.1.2",
-    "jsdoc-to-markdown": "^4.0.1",
-    "jsdom": "^13.2.0",
-    "rollup": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "mocha": "^6.0.0",
-    "mocha-jsdom": "^2.0.0",
-    "nyc": "^13.3.0"
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@babel/register": "^7.23.0",
+    "chai": "^4.3.8",
+    "jsdoc-to-markdown": "^8.0.0",
+    "jsdom": "^22.1.0",
+    "microbundle": "^0.15.1",
+    "rollup": "^4.9.0",
+    "rollup-plugin-terser": "^7.1.0",
+    "nyc": "^15.1.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

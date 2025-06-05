@@ -30,6 +30,8 @@ camelCase for function and variable names
 
 ### Getting set up
 
+Ensure you are running **Node.js 18** or newer.
+
 - Pull the repo
 - run `npm install`
 - run `npm test` to run all unit tests
