@@ -1,18 +1,15 @@
-import filter from '../filter'
-import {assert} from 'chai'
+import filter from '../filter.js'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 
-describe('filter', function () {
-  var items = [1, 2, 2, 2, 3]
-  it('should return an array of elements that pass the test', function () {
-    var filtered = filter(items, function (item) {
-      return item === 2
-    })
-    assert.deepEqual(filtered, [2, 2, 2])
-  })
-  it('should return a new array', function () {
-    var filtered = filter(items, function (item) {
-      return item !== 2
-    })
-    assert.notStrictEqual(filtered, items)
-  })
+test('filter returns items that pass the predicate', () => {
+  const items = [1, 2, 2, 2, 3]
+  const filtered = filter(items, item => item === 2)
+  assert.deepEqual(filtered, [2, 2, 2])
+})
+
+test('filter returns a new array', () => {
+  const items = [1, 2, 2, 2, 3]
+  const filtered = filter(items, item => item !== 2)
+  assert.notStrictEqual(filtered, items)
 })

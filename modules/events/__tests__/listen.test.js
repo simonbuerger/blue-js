@@ -1,40 +1,38 @@
-import listen from '../listen'
-import jsdom from 'mocha-jsdom'
+import listen from '../listen.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('listen', function () {
-  jsdom({ url: 'http://localhost/' })
-  it('should listen for an event', function (done) {
-    var link = document.createElement('a')
-    listen(link, 'click', function (event) {
-      done()
-    })
-    var clickEvt = new window.Event('click')
-    link.dispatchEvent(clickEvt)
+test('listen for an event', t => {
+  return new Promise(resolve => {
+    const link = document.createElement('a')
+    listen(link, 'click', () => resolve())
+    const evt = new window.Event('click')
+    link.dispatchEvent(evt)
   })
-  it('should remove a listener when the returned remove function is called', function (done) {
-    var link = document.createElement('a')
-    var count = 0
-    var listener = listen(link, 'click', function (event) {
+})
+
+test('listener remove function removes the handler', async () => {
+  const link = document.createElement('a')
+  let count = 0
+  const listener = listen(link, 'click', () => { count++ })
+  const evt = new window.Event('click')
+  link.dispatchEvent(evt)
+  listener.remove()
+  link.dispatchEvent(evt)
+  await new Promise(r => setTimeout(r, 50))
+  assert.equal(count, 1)
+})
+
+test('listen handles multiple events', t => {
+  return new Promise(resolve => {
+    const link = document.createElement('a')
+    let count = 0
+    listen(link, 'click mouseenter', () => {
       count++
+      if (count === 2) resolve()
     })
-    var clickEvt = new window.Event('click')
-    link.dispatchEvent(clickEvt)
-    listener.remove()
-    link.dispatchEvent(clickEvt)
-    setTimeout(function () {
-      if (count === 1) done()
-    }, 50)
-  })
-  it('should listen for multiple events', function (done) {
-    var link = document.createElement('a')
-    var count = 0
-    listen(link, 'click mouseenter', function (event) {
-      count++
-      if (count === 2) done()
-    })
-    var clickEvt = new window.Event('click')
-    var mouseenterEvt = new window.Event('mouseenter')
-    link.dispatchEvent(clickEvt)
-    link.dispatchEvent(mouseenterEvt)
+    link.dispatchEvent(new window.Event('click'))
+    link.dispatchEvent(new window.Event('mouseenter'))
   })
 })

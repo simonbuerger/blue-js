@@ -1,23 +1,25 @@
-import each from '../each'
-import jsdom from 'mocha-jsdom'
-import { assert } from 'chai'
+import each from '../each.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('each', function () {
-  jsdom({
-    url: 'http://localhost/',
-    html: '<a>0</a><a>1</a><a>2</a>'
+test('each iterates over a collection', () => {
+  document.body.children = []
+  for (let i = 0; i < 3; i++) {
+    const a = document.createElement('a')
+    a.innerHTML = String(i)
+    document.body.appendChild(a)
+  }
+  const links = document.querySelectorAll('a')
+  each(links, (link, index) => {
+    assert.equal(link.innerHTML, String(index))
   })
-  it('should iterate over a NodeList', function () {
-    var links = document.querySelectorAll('a')
-    each(links, function (link, index) {
-      assert.equal(link.innerHTML, index)
-    })
-  })
-  it('should still run the function against the element if not an iterable', function () {
-    var links = document.querySelectorAll('a')[1]
-    each(links, function (link, index) {
-      assert.equal(link.innerHTML, 1)
-      assert.equal(typeof index, 'undefined')
-    })
+})
+
+test('each runs against a single element when not iterable', () => {
+  const link = document.querySelectorAll('a')[1]
+  each(link, (el, index) => {
+    assert.equal(el.innerHTML, '1')
+    assert.equal(typeof index, 'undefined')
   })
 })

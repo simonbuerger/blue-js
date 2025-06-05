@@ -1,4 +1,4 @@
-import apply from '../lang/apply'
+import apply from '../lang/apply.js'
 
 /**
 Iterate over a dom NodeList

@@ -1,6 +1,6 @@
-import hasClass from './hasClass'
-import addClass from './addClass'
-import removeClass from './removeClass'
+import hasClass from './hasClass.js'
+import addClass from './addClass.js'
+import removeClass from './removeClass.js'
 /**
 Toggle a class on an element
 @param {HTMLElement} el The dom node

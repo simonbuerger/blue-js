@@ -1,5 +1,5 @@
-import apply from '../lang/apply'
-import { removeMultipleListeners } from './_listeners'
+import apply from '../lang/apply.js'
+import { removeMultipleListeners } from './_listeners.js'
 
 /**
  * Remove one or more events from one or more targets

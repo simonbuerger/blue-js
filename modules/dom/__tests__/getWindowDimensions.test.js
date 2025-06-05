@@ -1,12 +1,10 @@
-import getWindowDimensions from '../getWindowDimensions'
-import jsdom from 'mocha-jsdom'
-import {assert} from 'chai'
+import getWindowDimensions from '../getWindowDimensions.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('getWindowDimensions', function () {
-  jsdom({ url: 'http://localhost/' })
-  it('should return an object containing the `width` and `height` of the window', function () {
-    var dimensions = getWindowDimensions()
-    assert.equal(typeof dimensions.width, 'number')
-    assert.equal(typeof dimensions.height, 'number')
-  })
+test('getWindowDimensions returns width and height numbers', () => {
+  const dimensions = getWindowDimensions()
+  assert.equal(typeof dimensions.width, 'number')
+  assert.equal(typeof dimensions.height, 'number')
 })

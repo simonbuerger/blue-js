@@ -1,4 +1,4 @@
-import isVisible from './isVisible'
+import isVisible from './isVisible.js'
 
 /**
 Check whether an element is hidden
