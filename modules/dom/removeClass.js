@@ -1,4 +1,4 @@
-import { filterClass } from '../utils/classlist'
+import { filterClass } from '../utils/classlist.js'
 /**
 Remove a class from an element
 

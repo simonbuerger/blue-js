@@ -1,27 +1,23 @@
-import addClass from '../addClass'
-import jsdom from 'mocha-jsdom'
-import { assert } from 'chai'
+import addClass from '../addClass.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('addClass', function () {
-  jsdom({
-    url: 'http://localhost/'
+test('addClass should add a class to the current class', () => {
+  Object.defineProperty(window.Element.prototype, 'classList', {
+    get () {
+      return null
+    }
   })
-  it('should add a class to the current class', function () {
-    this.timeout(5000)
-    Object.defineProperty(window.Element.prototype, 'classList', {
-      get: function () {
-        return null
-      }
-    })
-    var div = document.createElement('div')
-    div.className = 'foo bar '
-    addClass(div, 'baz')
-    assert.equal(div.className, 'foo bar baz')
-  })
-  it('should not add a class that already exists', function () {
-    var div = document.createElement('div')
-    div.className = 'foo bar'
-    addClass(div, 'bar')
-    assert.equal(div.className, 'foo bar')
-  })
+  const div = document.createElement('div')
+  div.className = 'foo bar '
+  addClass(div, 'baz')
+  assert.equal(div.className, 'foo bar baz')
+})
+
+test('addClass should not add an existing class', () => {
+  const div = document.createElement('div')
+  div.className = 'foo bar'
+  addClass(div, 'bar')
+  assert.equal(div.className, 'foo bar')
 })

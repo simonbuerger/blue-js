@@ -1,36 +1,38 @@
-import listen from '../listen'
-import trigger from '../trigger'
-import jsdom from 'mocha-jsdom'
+import listen from '../listen.js'
+import trigger from '../trigger.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('trigger', function () {
-  jsdom({ url: 'http://localhost/' })
-  it('should trigger a standard event on an element', function (done) {
-    var link = document.createElement('a')
-    listen(link, 'click', function (event) {
-      done()
-    })
+test('trigger a standard event', () => {
+  return new Promise(resolve => {
+    const link = document.createElement('a')
+    listen(link, 'click', () => resolve())
     trigger(link, 'click')
   })
-  it('should trigger a custom event on an element', function (done) {
-    var link = document.createElement('a')
-    listen(link, 'Foo:Bar', function (event) {
-      done()
-    })
+})
+
+test('trigger a custom event', () => {
+  return new Promise(resolve => {
+    const link = document.createElement('a')
+    listen(link, 'Foo:Bar', () => resolve())
     trigger(link, 'Foo:Bar')
   })
-  it('should pass data on to the event', function (done) {
-    var link = document.createElement('a')
-    listen(link, 'Foo:Bar', function (event) {
-      if (event.detail.foo === 'bar') done()
-    })
+})
+
+test('trigger passes data through', () => {
+  return new Promise(resolve => {
+    const link = document.createElement('a')
+    listen(link, 'Foo:Bar', evt => { if (evt.detail.foo === 'bar') resolve() })
     trigger(link, 'Foo:Bar', { foo: 'bar' })
   })
-  it('should work without window.CustomEvent defined', function (done) {
+})
+
+test('trigger works without CustomEvent', () => {
+  return new Promise(resolve => {
     delete window.CustomEvent
-    var link = document.createElement('a')
-    listen(link, 'Foo:Bar', function (event) {
-      if (event.detail.foo === 'bar') done()
-    })
+    const link = document.createElement('a')
+    listen(link, 'Foo:Bar', evt => { if (evt.detail.foo === 'bar') resolve() })
     trigger(link, 'Foo:Bar', { foo: 'bar' })
   })
 })

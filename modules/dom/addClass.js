@@ -1,4 +1,4 @@
-import hasClass from './hasClass'
+import hasClass from './hasClass.js'
 /**
 Add a class to an element
 

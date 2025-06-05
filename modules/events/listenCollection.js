@@ -1,5 +1,5 @@
-import listen from './listen'
-import apply from '../lang/apply'
+import listen from './listen.js'
+import apply from '../lang/apply.js'
 
 /**
 Same as events.listen, excpet for NodeList rather than a single Element

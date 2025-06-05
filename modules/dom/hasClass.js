@@ -1,4 +1,4 @@
-import { splitClass } from '../utils/classlist'
+import { splitClass } from '../utils/classlist.js'
 /**
 Check if an element has a class
 @param {HTMLElement} el The dom node

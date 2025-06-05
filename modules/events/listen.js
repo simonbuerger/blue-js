@@ -1,4 +1,4 @@
-import { listenMultipleEvents, removeSpecificListeners } from './_listeners'
+import { listenMultipleEvents, removeSpecificListeners } from './_listeners.js'
 
 /**
 Listen for one or more events (custom or standard)

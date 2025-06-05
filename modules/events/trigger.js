@@ -1,4 +1,4 @@
-import createCustom from './_createCustom'
+import createCustom from './_createCustom.js'
 /**
 Trigger any event on a dom element, optionally pass data
 @param {HTMLElement} el The dom node

@@ -1,24 +1,19 @@
-import toggleClass from '../toggleClass'
-import jsdom from 'mocha-jsdom'
-import {assert} from 'chai'
+import toggleClass from '../toggleClass.js'
+import assert from 'node:assert/strict'
+import '../../../test/dom-setup.js'
+import test from 'node:test'
 
-describe('toggleClass', function () {
-  jsdom({ url: 'http://localhost/' })
-  it('should toggle a class off if it is present', function () {
-    Object.defineProperty(window.Element.prototype, 'classList', {
-      get: function () {
-        return null
-      }
-    })
-    var div = document.createElement('div')
-    div.className = 'bar'
-    toggleClass(div, 'bar')
-    assert.strictEqual(div.className, '')
-  })
-  it('should toggle a class on if it is not present', function () {
-    var div = document.createElement('div')
-    div.className = 'foo'
-    toggleClass(div, 'bar')
-    assert.strictEqual(div.className, 'foo bar')
-  })
+test('toggleClass turns a present class off', () => {
+  Object.defineProperty(window.Element.prototype, 'classList', { get: () => null })
+  const div = document.createElement('div')
+  div.className = 'bar'
+  toggleClass(div, 'bar')
+  assert.strictEqual(div.className, '')
+})
+
+test('toggleClass turns a missing class on', () => {
+  const div = document.createElement('div')
+  div.className = 'foo'
+  toggleClass(div, 'bar')
+  assert.strictEqual(div.className, 'foo bar')
 })
