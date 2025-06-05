@@ -32,7 +32,8 @@ camelCase for function and variable names
 
 - Pull the repo
 - run `npm install`
-- run `npm start` to run all unit tests, lint the codebase, and build the API docs
+- run `npm test` to run all unit tests
+- run `npm run build` to bundle the library with Rollup
 
 * * *
 
